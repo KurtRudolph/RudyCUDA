@@ -13,34 +13,6 @@
 
 #include <rudyCUDA.h>
 
-struct rudy_cudaDeviceProp_t {
-	cudaDeviceProp prop;
-	char* name[256];
-	size_t* totalGloblalMemory;
-	int* regsPerBlock;
-	int* warpSize;
-	size_t* memPitch;
-	int* maxThreadsPerBlock;
-	int* maxThreadsDim[3];
-	int* maxGridSize[3];
-	size_t* totalConstMem;
-	int* major;
-	int* minor;
-	int* clockrate;
-	size_t* textureAlignment;
-	int* deviceOverlap;
-	int* multiProcessorCount;
-	int* kernelExecTimeoutEnabled;
-	int* integrated;
-	int* canMapHostMemory;
-	int* computeMode;
-	int* maxTexture1D;
-	int* maxTexture2D[2];
-	int* maxTexture3D[3];
-	int* maxTexture2DArray[3];
-	int* concurrentKernels;
-}rudy_cudaDeviceProp;
-
 /**
   * @brief gather information for the available devices
   * @return devicePropertiesArray an of points to #rudy_cudaDeviceProp

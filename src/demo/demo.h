@@ -3,8 +3,8 @@
   * @author Kurt Robert Rudolph
   */
 
-#ifndef __DEMO_H__
-#define __DEMO_H__
+#ifndef DEMO_H
+#define DEMO_H
 	#include <rudyCUDA.h>
 	#include "rudy_deviceInfo.h"
 

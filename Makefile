@@ -5,7 +5,7 @@ FLAGS = -I./common -I./src
 LDFLAGS =
 CCFLAGS =
 CXXFLAGS = 
-NVCCFLAGS =  
+NVCCFLAGS = -g 
 
 OBJECT_DIRECTORY := obj
 SOURCE_DIRECTORY := src
@@ -51,7 +51,7 @@ include  $(wildcard *.dep) /dev/null
 #
 
 $(DEMO) : $(OBJECTS) $(DEMO_OBJECTS)
-	$(NVCC) $(OBJECTS) $(DEMO_OBJECTS) $(LDFLAGS) -o $@ 
+	$(NVCC) $(OBJECTS) $(DEMO_OBJECTS) $(LDFLAGS) $< -o $@ 
 
 $(TEST) : $(OBJECTS) $(TEST_OBJECTS)
 	$(NVCC) $(LDFLAGS) -o $@
