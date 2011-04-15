@@ -1,0 +1,4 @@
+*.o
+*.o.dep
+demo
+test
