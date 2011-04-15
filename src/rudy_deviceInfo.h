@@ -46,6 +46,6 @@ struct rudy_cudaDeviceProp_t {
   * @return devicePropertiesArray an of points to #rudy_cudaDeviceProp
 	* storeing the properties of the availble devices
   */ 
-cudaDeviceProp ** rudy_deviceInfo_gather();
+cudaDeviceProp ** rudy_deviceInfo_gather(void);
 
 #endif
