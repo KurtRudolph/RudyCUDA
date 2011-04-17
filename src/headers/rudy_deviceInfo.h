@@ -14,10 +14,17 @@
 #include <rudyCUDA.h>
 
 /**
-  * @brief gather information for the available devices
+  * @brief Gather information for the available devices
   * @return devicePropertiesArray an of points to #rudy_cudaDeviceProp
 	* storeing the properties of the availble devices
   */ 
 cudaDeviceProp ** rudy_deviceInfo_gather(void);
+
+/**
+	* @brief Free the memory of a cudaDeviceProp**
+	* @param devicePropertiesArray the cudaDeviceProp** to 
+  * be freed from memory and set to NULL
+  */
+void rudy_deviceInfo_free(cudaDeviceProp ** devicePropertiesArray);
 
 #endif

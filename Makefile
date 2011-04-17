@@ -1,23 +1,23 @@
-CC = gcc
-CXX = g++
+CC = nvcc 
+CXX = nvcc 
 NVCC = nvcc
-FLAGS = -I./common -I./src
+FLAGS = -I./src/headers -I./src -I./common 
 LDFLAGS =
-CCFLAGS =
-CXXFLAGS = 
+CCFLAGS = -g
+CXXFLAGS = -g
 NVCCFLAGS = -g 
 
-OBJECT_DIRECTORY := obj
+OBJECT_DIRECTORY := common/obj
 SOURCE_DIRECTORY := src
-DEMO_DIRECTORY := $(addprefix $(SOURCE_DIRECTORY)/,demo)
-TEST_DIRECOTRY := $(addprefix $(SOURCE_DIRECTORY)/,test)
+DEMO_DIRECTORY := $(SOURCE_DIRECTORY)/demos
+TEST_DIRECTORY := $(SOURCE_DIRECTORY)/tests
 VPATH := $(OBJECT_DIRECTORY) $(SOURCE_DIRECTORY) $(DEMO_DIRECTORY) $(TEST_DIRECTORY)
 
 OBJECTS := $(patsubst $(SOURCE_DIRECTORY)/%.cu, $(OBJECT_DIRECTORY)/%.o, $(wildcard $(SOURCE_DIRECTORY)/*.cu))
-DEMO_OBJECTS := $(patsubst $(DEMO_DIRECTORY)/%.cu, $(OBJECT_DIRECTORY)/%.o, $(wildcard $(DEMO_DIRECTORY)/*.cu))
-TEST_OBJECTS := $(patsubst $(TEST_DIRECTORY)/%.cu, $(OBJECT_DIRECTORY)/%.o, $(wildcard $(TEST_DIRECTORY)/*.cu))
+DEMO_OBJECTS := $(OBJECTS) $(patsubst $(DEMO_DIRECTORY)/%.cu, $(OBJECT_DIRECTORY)/%.o, $(wildcard $(DEMO_DIRECTORY)/*.cu))
+TEST_OBJECTS := $(OBJECTS) $(patsubst $(TEST_DIRECTORY)/%.cu, $(OBJECT_DIRECTORY)/%.o, $(wildcard $(TEST_DIRECTORY)/*.cu))
 
-DEMO := demo 
+DEMO := demo
 TEST := test
 
 # Similar for OPENCC_FLAGS and PTXAS_FLAGS. 
@@ -30,11 +30,11 @@ export PTXAS_FLAGS  := -fastimul
 # dependency generation: 
 #
 $(OBJECT_DIRECTORY)/%.o : %.cpp
-	$(NVCC) -c $^ $(NVCCFLAGS) $(FLAGS) -o $@ 
-	$(NVCC) -M $^ $(NVCCFLAGS) $(FLAGS) > $@.dep 
+	$(CXX) -c $^ $(CXXFLAGS) $(FLAGS) -o $@ 
+	$(CXX) -M $^ $(CXXFLAGS) $(FLAGS) > $@.dep 
 $(OBJECT_DIRECTORY)/%.o : %.c 
-	$(NVCC) -c $^ $(CCFLAGS) $(FLAGS) -o $@ 
-	$(NVCC) -M $^ $(CCFLAGS) $(FLAGS) > $@.dep 
+	$(CC) -c $^ $(CCFLAGS) $(FLAGS) -o $@ 
+	$(CC) -M $^ $(CCFLAGS) $(FLAGS) > $@.dep 
 $(OBJECT_DIRECTORY)/%.o : %.cu 
 	$(NVCC) -c $^ $(NVCCFLAGS) $(FLAGS) -o $@ 
 	$(NVCC) -M $^ $(NVCCFLAGS) $(FLAGS)  > $@.dep
@@ -50,14 +50,14 @@ include  $(wildcard *.dep) /dev/null
 # corresponding .c or .cpp or .cu file: 
 #
 
-$(DEMO) : $(OBJECTS) $(DEMO_OBJECTS)
-	$(NVCC) $(OBJECTS) $(DEMO_OBJECTS) $(LDFLAGS) $< -o $@ 
+$(DEMO) : $(DEMO_OBJECTS) 
+	$(NVCC) $(DEMO_OBJECTS) $(LDFLAGS) -o $@ 
 
-$(TEST) : $(OBJECTS) $(TEST_OBJECTS)
-	$(NVCC) $(LDFLAGS) -o $@
+$(TEST) : $(TEST_OBJECTS)
+	$(NVCC) $(TEST_OBJECTS) $(LDFLAGS) -o $@
 
 clean :  
-	$(RM) $(OBJECTS) $(DEMO_OBJECTS) $(TEST_OBJECTS) $(OBJECT_DIRECTORY)/*.dep $(DEMO) $(TEST) 
+	$(RM) $(DEMO_OBJECTS) $(TEST_OBJECTS) $(OBJECT_DIRECTORY)/*.dep $(DEMO) $(TEST) 
 
 
 

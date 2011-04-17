@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # Auto generate single AllTests file for CuTest.
-# Searches through all *.c files in the current directory.
+# Searches through all *.cu files in the current directory.
 # Prints to stdout.
 # Author: Asim Jalis
 # Date: 01/08/2003
 
-if test $# -eq 0 ; then FILES=*.c ; else FILES=$* ; fi
+if test $# -eq 0 ; then FILES=*.cu ; else FILES=$* ; fi
 
 echo '
 
