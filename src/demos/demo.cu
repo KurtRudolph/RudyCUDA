@@ -1,8 +1,9 @@
 #include "rudy_deviceInfo.h"
 
 int main (int argc, char *argv[]) {
-	cudaDeviceProp ** devicePropertiesArray = rudy_deviceInfo_gather();	
-	printf( "\ncomputeMode: %d\n", devicePropertiesArray[0]->computeMode);
-	rudy_deviceInfo_free( devicePropertiesArray);	
+	deviceInfo* devices = rudy_deviceInfo_gather();	
+	rudy_deviceInfo_print( devices);
+	
+	rudy_deviceInfo_free( devices);	
 	return 0;
 }

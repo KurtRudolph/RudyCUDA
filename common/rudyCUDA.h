@@ -1,19 +1,3 @@
-/*
- * Copyright 1993-2010 NVIDIA Corporation.  All rights reserved.
- *
- * NVIDIA Corporation and its licensors retain all intellectual property and
- * proprietary rights in and to this software and related documentation.
- * Any use, reproduction, disclosure, or distribution of this software
- * and related documentation without an express license agreement from
- * NVIDIA Corporation is strictly prohibited.
- *
- * Please refer to the applicable NVIDIA end user license agreement (EULA)
- * associated with this source code for terms and conditions that govern
- * your use of this NVIDIA software.
- *
- */
-
-
 #ifndef __RUDY_CUDA_H__
 #define __RUDY_CUDA_H__
 #include <stdio.h>
@@ -30,6 +14,17 @@ static void HandleError( cudaError_t err,
 #define HANDLE_ERROR( err ) (HandleError( err, __FILE__, __LINE__ ))
 
 #define HANDLE_NULL( a ) {if (a == NULL) { printf( "Host memory failed in %s at line %d\n", __FILE__, __LINE__ ); exit( EXIT_FAILURE );}}
+
+//The macro CUPRINTF is defined for architectures
+//with different compute capabilities.
+#if __CUDA_ARCH__ < 200   //Compute capability 1.x architectures
+#define CUPRINTF cuPrintf
+#else           //Compute capability 2.x architectures
+#define CUPRINTF(fmt, ...) printf("[%d, %d]:\t" fmt, \
+                blockIdx.y*gridDim.x+blockIdx.x,\
+                threadIdx.z*blockDim.x*blockDim.y+threadIdx.y*blockDim.x+threadIdx.x,\
+                __VA_ARGS__)
+#endif
 
 
 #endif  
