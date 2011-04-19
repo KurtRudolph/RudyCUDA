@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <rudy_deviceInfo.h>	
+#include <rudyCUDA_deviceInfo.h>	
 
 #include "CuTest.h"
 
@@ -18,7 +18,7 @@ void Test_deviceInfo_gather(CuTest* tc)
 	int i;
 	int deviceCount;
 	cudaDeviceProp prop;
-	deviceInfo * devices = rudy_deviceInfo_gather();
+	rudyCUDA_deviceInfo * devices = rudyCUDA_deviceInfo_gather();
 
 	HANDLE_ERROR( cudaGetDeviceCount (&deviceCount));
 	CuAssertTrue( tc, deviceCount == devices->deviceCount);	
@@ -48,14 +48,14 @@ void Test_deviceInfo_gather(CuTest* tc)
 		CuAssertTrue( tc, prop.maxGridSize[1] == devices->devicePropertiesArray[i]->maxGridSize[1]);
 		CuAssertTrue( tc, prop.maxGridSize[2] == devices->devicePropertiesArray[i]->maxGridSize[2]);
   }
-	rudy_deviceInfo_free( devices);
+	rudyCUDA_deviceInfo_free( devices);
 }
 	
 void Test_deviceInfo_free(CuTest* tc)
 {
 	int i;
 	int deviceCount;
-	deviceInfo * devices = rudy_deviceInfo_gather();	
+	rudyCUDA_deviceInfo * devices = rudyCUDA_deviceInfo_gather();	
 	
 
 	HANDLE_ERROR( cudaGetDeviceCount (&deviceCount));	
@@ -69,7 +69,7 @@ void Test_deviceInfo_free(CuTest* tc)
 		CuAssertTrue( tc, testPropPointerArray[i] == devices->devicePropertiesArray[i]);
 	}
 
-	rudy_deviceInfo_free(devices);
+	rudyCUDA_deviceInfo_free(devices);
 
 	for( i = 0; i< deviceCount; i++){
 		CuAssertTrue( tc, devices == NULL);
