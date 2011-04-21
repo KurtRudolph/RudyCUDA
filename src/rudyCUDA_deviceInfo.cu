@@ -8,11 +8,12 @@
 
 rudyCUDA_deviceInfo * rudyCUDA_deviceInfo_gather( void) {
 	int i;
-	rudyCUDA_deviceInfo * devices = (rudyCUDA_deviceInfo*) malloc( sizeof( rudyCUDA_deviceInfo));
+	rudyCUDA_deviceInfo * devices; 
+	HANDLE_ERROR( cudaMalloc( (rudyCUDA_deviceInfo**) &devices, sizeof( rudyCUDA_deviceInfo)));
 	HANDLE_ERROR( cudaGetDeviceCount( &( devices->deviceCount)));
-	devices->devicePropertiesArray = (cudaDeviceProp**) malloc( sizeof( cudaDeviceProp*) * devices->deviceCount);
+	HANDLE_ERROR( cudaMalloc( (cudaDeviceProp**) &devices->devicePropertiesArray, sizeof( cudaDeviceProp*) * devices->deviceCount));
 	for( i= 0; i< devices->deviceCount; i++) {
-		devices->devicePropertiesArray[i] = (cudaDeviceProp*) malloc( sizeof( cudaDeviceProp));	
+		HANDLE_ERROR( cudaMalloc( (cudaDeviceProp***) &devices->devicePropertiesArray[i], sizeof( cudaDeviceProp)));	
 		HANDLE_ERROR( cudaGetDeviceProperties( devices->devicePropertiesArray[i], i));
 	}
 	return devices;
@@ -21,12 +22,12 @@ rudyCUDA_deviceInfo * rudyCUDA_deviceInfo_gather( void) {
 void rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices) {
 	int i;	
 	for( i= 0; i< devices->deviceCount; i++) {
-		free( devices->devicePropertiesArray[i]);
+		cudaFree( devices->devicePropertiesArray[i]);
 		devices->devicePropertiesArray[i] = NULL;
 	}
-	free( devices->devicePropertiesArray);
+	cudaFree( devices->devicePropertiesArray);
 	devices->devicePropertiesArray = NULL;
-	free( devices);
+	cudaFree( devices);
 	devices = NULL;
 }
 
