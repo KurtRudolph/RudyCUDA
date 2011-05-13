@@ -19,7 +19,7 @@ rudyCUDA_deviceInfo * rudyCUDA_deviceInfo_gather( void) {
 	return devices;
 }
 
-void rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices) {
+rudyCUDA_state rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices) {
 	int i;	
 	for( i= 0; i< devices->deviceCount; i++) {
 		cudaFree( devices->devicePropertiesArray[i]);
@@ -29,9 +29,10 @@ void rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices) {
 	devices->devicePropertiesArray = NULL;
 	cudaFree( devices);
 	devices = NULL;
+	return rudyCUDA_state_success;
 }
 
-void rudyCUDA_deviceInfo_print( rudyCUDA_deviceInfo * devices) {
+rudyCUDA_state rudyCUDA_deviceInfo_print( rudyCUDA_deviceInfo * devices) {
 	int i;
 	for ( i=0; i< devices->deviceCount; i++) {
 		printf( "   --- General Information for device %d ---\n", i);
@@ -63,4 +64,5 @@ void rudyCUDA_deviceInfo_print( rudyCUDA_deviceInfo * devices) {
 		printf( "Max grid dimensions:  (%d, %d, %d)\n", devices->devicePropertiesArray[i]->maxGridSize[0], devices->devicePropertiesArray[i]->maxGridSize[1], devices->devicePropertiesArray[i]->maxGridSize[2]);
 		printf( "\n");
 	}
+  return rudyCUDA_state_success;
 }

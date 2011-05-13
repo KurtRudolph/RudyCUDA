@@ -28,21 +28,24 @@ typedef struct rudyCUDA_deviceInfo_t {
 
 /**
   * @brief Gather information for the available devices
-  * @return devicePropertiesArray an of points to #rudyCUDA_cudaDeviceProp
-	* storeing the properties of the availble devices
+  * @param devices A pointer to the rudyCUDA_deviceInfo sturct
+  * where the data is to be stored.
+  * @return rudyCUDA_deviceInfo struct containing containing the
+	* properties of the availble devices.
   */ 
 rudyCUDA_deviceInfo * rudyCUDA_deviceInfo_gather( void);
 
 /**
 	* @brief Free the memory of a cudaDeviceProp**
-	* @param devicePropertiesArray the cudaDeviceProp** to 
+	* @param devices A pointer to the rudyCUDA_deviceInfo struct
+  * to be freed from memory.  
   * be freed from memory and set to NULL
   */
-void rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices);
+rudyCUDA_state rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices);
 
 /**
   * @brief Print all device info
   */
-void rudyCUDA_deviceInfo_print(rudyCUDA_deviceInfo * devices);
+rudyCUDA_state rudyCUDA_deviceInfo_print(rudyCUDA_deviceInfo * devices);
 
 #endif
