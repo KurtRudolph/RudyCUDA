@@ -1,6 +1,7 @@
 #ifndef __RUDY_CUDA_H__
 #define __RUDY_CUDA_H__
 #include <stdio.h>
+#include <rudy_typedef.h>
 
 
 typedef enum {
@@ -27,6 +28,10 @@ static void HandleError( cudaError_t err, const char *file, int line ) {
                 threadIdx.z*blockDim.x*blockDim.y+threadIdx.y*blockDim.x+threadIdx.x,\
                 __VA_ARGS__)
 #endif
+
+
+
+
 
 
 #endif  

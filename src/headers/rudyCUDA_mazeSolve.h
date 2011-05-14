@@ -9,13 +9,13 @@
 #ifndef __RUDY_CUDA__MAZE_SOLVE_H__
 #define __RUDY_CUDA__MAZE_SOLVE_H__
 
-typedef enum MazeSolve 
+//typedef enum MazeSolve 
 
 /**
   * @brief Loads an immage in parallel
   * 
   */
-void 
+//void 
 
 
 

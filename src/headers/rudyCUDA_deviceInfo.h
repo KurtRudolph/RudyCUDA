@@ -33,7 +33,7 @@ typedef struct rudyCUDA_deviceInfo_t {
   * @return rudyCUDA_deviceInfo struct containing containing the
 	* properties of the availble devices.
   */ 
-rudyCUDA_deviceInfo * rudyCUDA_deviceInfo_gather( void);
+rudyCUDA_state rudyCUDA_deviceInfo_gather( rudyCUDA_deviceInfo ** devices);
 
 /**
 	* @brief Free the memory of a cudaDeviceProp**
@@ -41,11 +41,11 @@ rudyCUDA_deviceInfo * rudyCUDA_deviceInfo_gather( void);
   * to be freed from memory.  
   * be freed from memory and set to NULL
   */
-rudyCUDA_state rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo * devices);
+rudyCUDA_state rudyCUDA_deviceInfo_free( rudyCUDA_deviceInfo ** devices);
 
 /**
   * @brief Print all device info
   */
-rudyCUDA_state rudyCUDA_deviceInfo_print(rudyCUDA_deviceInfo * devices);
+rudyCUDA_state rudyCUDA_deviceInfo_print(rudyCUDA_deviceInfo ** devices);
 
 #endif
