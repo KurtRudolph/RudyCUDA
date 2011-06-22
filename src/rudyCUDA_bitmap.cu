@@ -4,6 +4,6 @@
   * @date 05/13/2011
   */
 
-#include <rudyCUDA_bitmap.c>
+#include <rudyCUDA_bitmap.h>
 
 

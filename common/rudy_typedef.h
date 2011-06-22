@@ -9,11 +9,11 @@
 #ifndef __RUDY_TYPEDEF_H__
 	#define __RUDY_TYPEDEF_H__
 
-	#ifndef bool
+/*	#ifndef bool
 		typedef int bool;
 		#define FALSE (0)
 		#define TRUE !FALSE
-	#endif //bool 
+	#endif //bool */
 
 	#ifndef uint8_t
 		typedef unsigned char uint8_t;
