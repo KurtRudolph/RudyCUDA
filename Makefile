@@ -5,7 +5,7 @@ FLAGS = -I./src/headers -I./src -I./common
 LDFLAGS =
 CCFLAGS = -g
 CXXFLAGS = -g
-NVCCFLAGS = -g 
+NVCCFLAGS = -g --compiler-bindir=/usr/bin/gcc-3.3
 
 OBJECT_DIRECTORY := common/obj
 SOURCE_DIRECTORY := src
@@ -48,7 +48,7 @@ include  $(wildcard *.dep) /dev/null
 # Define the application;  
 # for each object file, there must be a 
 # corresponding .c or .cpp or .cu file: 
-#
+# 
 
 $(DEMO) : $(DEMO_OBJECTS) 
 	$(NVCC) $(DEMO_OBJECTS) $(LDFLAGS) -o $@ 

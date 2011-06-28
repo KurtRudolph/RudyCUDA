@@ -5,6 +5,10 @@
 #include "CuTest.h"
 
 
+extern void Test_deviceInfo_gather(CuTest*);
+extern void Test_deviceInfo_free(CuTest*);
+extern void Test_deviceInfo_gather(CuTest*);
+extern void Test_deviceInfo_free(CuTest*);
 extern void TestCuStringNew(CuTest*);
 extern void TestCuStringAppend(CuTest*);
 extern void TestCuStringAppendNULL(CuTest*);
@@ -39,7 +43,6 @@ extern void TestAssertStrEquals_FailNULLStr(CuTest*);
 extern void TestAssertStrEquals_FailStrNULL(CuTest*);
 extern void TestAssertIntEquals(CuTest*);
 extern void TestAssertDblEquals(CuTest*);
-extern void Test_deviceInfo_gather(CuTest*);
 
 
 void RunAllTests(void) 
@@ -48,6 +51,10 @@ void RunAllTests(void)
     CuSuite* suite = CuSuiteNew();
 
 
+    SUITE_ADD_TEST(suite, Test_deviceInfo_gather);
+    SUITE_ADD_TEST(suite, Test_deviceInfo_free);
+    SUITE_ADD_TEST(suite, Test_deviceInfo_gather);
+    SUITE_ADD_TEST(suite, Test_deviceInfo_free);
     SUITE_ADD_TEST(suite, TestCuStringNew);
     SUITE_ADD_TEST(suite, TestCuStringAppend);
     SUITE_ADD_TEST(suite, TestCuStringAppendNULL);
@@ -82,7 +89,6 @@ void RunAllTests(void)
     SUITE_ADD_TEST(suite, TestAssertStrEquals_FailStrNULL);
     SUITE_ADD_TEST(suite, TestAssertIntEquals);
     SUITE_ADD_TEST(suite, TestAssertDblEquals);
-    SUITE_ADD_TEST(suite, Test_deviceInfo_gather);
 
     CuSuiteRun(suite);
     CuSuiteSummary(suite, output);
